@@ -5,11 +5,13 @@ on:
     branches: [ main ]
     paths:
       - 'docker/**'
+      - '.github/workflows/**'
 
   pull_request:
     branches: [ main ]
     paths:
       - 'docker/**'
+      - '.github/workflows/**'
 
   release:
     types: [ published ]
@@ -61,7 +63,7 @@ jobs:
       packages: write
 
     steps:
-      # --- Free space to see if it helps ---
+      # --- Free space becos the docker build is large ---
       - name: Free Disk Space
         uses: jlumbroso/free-disk-space@main
         with:
