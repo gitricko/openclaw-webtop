@@ -16,7 +16,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/gitricko/openclaw-webtop)](https://github.com/gitricko/openclaw-webtop/issues)
 </p>
 
-**OpenClaw-WebTop** runs OpenClaw securely with a need for a dedicate computer. When you are read, you can move to your own machine docker environment if you would like.
+**OpenClaw-WebTop** runs OpenClaw securely with a need for a dedicate computer. When you are ready, you can move to your own machine docker environment if you would like.
 
 
 ## Quick start (TL;DR)
