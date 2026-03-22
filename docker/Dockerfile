@@ -20,10 +20,10 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 # Copy the Ollama binary from the official image
 COPY --from=ollama-bin /usr/bin/ollama /usr/local/bin/ollama
 
-# (Optional) If you want Ollama to start automatically when the desktop loads,
-# you can add a custom init script to /custom-cont-init.d/
-# RUN echo 'ollama serve &' > /custom-cont-init.d/start-ollama.sh && \
-#    chmod +x /custom-cont-init.d/start-ollama.sh
+# Start Ollama to start automatically when the desktop loads,
+RUN mkdir -p /custom-cont-init.d
+RUN echo 'ollama serve &' > /custom-cont-init.d/start-ollama.sh && \
+   chmod +x /custom-cont-init.d/start-ollama.sh
 
 RUN npm install -g openclaw@${OPENCLAW_VERSION}
 
