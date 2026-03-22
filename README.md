@@ -121,12 +121,12 @@ make start-locally-baked     # start from your local bake image
 ```
 
 ### NVIDIA Build API fallback
-Just sign in at [NVIDIA Build](https://build.nvidia.com/) and create a API. Prompt OpenClaw to configure NVIDIA API keys and models as backup before Ollama cloud credits run out. There are many youtube videos our there that teaches you how to do this. More documentation will follow.
+Just sign in at [NVIDIA Build](https://build.nvidia.com/) and create a API. Prompt OpenClaw to configure NVIDIA API keys and models as backup before Ollama cloud credits run out. There are many youtube videos out there that teaches you how to do this. More documentation will follow.
 
 
 ## ⚠️ Current Limitations (honest)
 
-- GitHub Codespaces free tier has monthly limits (great for testing, less ideal for 24/7 as CodeSpace auto-shutdown during inactivity)
+- GitHub Codespaces free tier has monthly limits (great for testing, less ideal for 24/7 as Codespace auto-shutdown during inactivity)
 - Ollama cloud [credits](https://ollama.com/settings) are daily — heavy use will push you to paid/local models
 - Browser desktop has slight latency vs native (expected)
 - Still very early (single maintainer, day-1 project)
@@ -147,7 +147,6 @@ Agent in action
  - [ ] Community templates (Telegram-only, WhatsApp-only, etc.)
  - [ ] One-click “deploy to VPS” guide (Railway / Fly.io / cheap VPS) ?
 
---- 
 ## 🤝 Contributing
 This is a one-person weekend project right now — every star, issue, or PR helps enormously!
 Feel free to open issues for bugs or feature requests.
