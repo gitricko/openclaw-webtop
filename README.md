@@ -2,7 +2,7 @@
 
 <p align="center">
     <picture>
-        <img width="703" height="344" alt="openclaw-webtop-title-logo" src="https://github.com/user-attachments/assets/7c97e8f7-3ee0-479b-837f-d1ee825c1839" />
+        <img width="703" height="344" alt="openclaw-webtop-title-logo" src="https://raw.githubusercontent.com/gitricko/openclaw-webtop/gitricko-README.md/docs/openclaw-webtop-title-logo.png" />
     </picture>
 </p>
 
