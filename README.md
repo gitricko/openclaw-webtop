@@ -1,9 +1,8 @@
 # 🦞 OpenClaw — Web Top
-Try OpenClaw securely using your own computer OR Github's CodeSpace
 
 <p align="center">
     <picture>
-        ![OpenClaw-WebTop](docs/openclaw-webtop-title-logo.png)
+        <img width="703" height="344" alt="openclaw-webtop-title-logo" src="https://raw.githubusercontent.com/gitricko/openclaw-webtop/gitricko-README.md/docs/openclaw-webtop-title-logo.png" />
     </picture>
 </p>
 
@@ -45,6 +44,6 @@ make start
 
 
 
-## Star History
+<!-- ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=gitricko/openclaw-webtop&type=date&legend=top-left)](https://www.star-history.com/#gitricko/openclaw-webtop&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=gitricko/openclaw-webtop&type=date&legend=top-left)](https://www.star-history.com/#gitricko/openclaw-webtop&type=date&legend=top-left) -->
