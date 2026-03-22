@@ -48,15 +48,16 @@ Perfect for:
 ## 🚀 Quick Start (5–10 minutes)
 
 1. **Open this repository in a GitHub Codespace** (big green “Code” button → Codespaces → New)
-2. In the Codespace terminal run:
+   <img width="703" alt="launch-codespace" src="./docs/launch-codespace.png">
+3. In the Codespace terminal run:
    ```bash
    make start
    ```
    (or make start-locally-baked if you prefer a pre-built image)
-3. Wait ~60 seconds. When the web desktop URL appears in the Codespace Ports tab, click it.
+4. Wait ~60 seconds. When the web desktop URL appears in the Codespace Ports tab, click it.
    <img width="703" alt="launch-webtop-via-ports" src="./docs/launch-webtop-via-ports.png">
 
-4. Inside the WebTop desktop:
+5. Inside the WebTop desktop:
 - Open a terminal → `ollama signin` (sign in via the Chromium browser that pops up) <img width="703" alt="ollama-signin" src="./docs/ollama-signin.png" />
 - Pull a model: `ollama pull kimi-k2.5:cloud` (or any model you like)
 - Launch: `ollama launch openclaw --model kimi-k2.5:cloud`
