@@ -66,13 +66,11 @@ Perfect for:
 5. Open Chromium inside WebTop and paste the dashboard URL.
 You now have a **fully working OpenClaw instance running 100% in the cloud.**
 
-
-
 ## 🔧 Features
 
 - **Zero local install** — everything runs in browser via GitHub Codespaces
 - **Free-tier friendly** — uses Ollama daily cloud credits + NVIDIA Build API fallback
-- **Persistent config** — Docker volume survives Codespace recreation
+- **Persistent config** — if docker volume backup and restore after Codespace recreation
 - **Easy backup/restore** — `make backup` / `make restore`
 - **One-command everything** — powerful Makefile + clean `docker-compose.yml`
 - **Auto-start Ollama** — custom init script on WebTop boot
