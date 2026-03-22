@@ -61,11 +61,12 @@ Perfect for:
 - Open a terminal → `ollama signin` (sign in via the Chromium browser that pops up) <img width="703" alt="ollama-signin" src="./docs/ollama-signin.png" />
 - Pull a model: `ollama pull kimi-k2.5:cloud` (or any model you like)
 - Launch: `ollama launch openclaw --model kimi-k2.5:cloud`
-- (After first launch) `openclaw gateway run` or `openclaw gateway restart`
+- (If there is errors/After first launch) `openclaw gateway run` or `openclaw gateway restart`
 - Finally: `openclaw dashboard` → copy the tokenized URL
 
 5. Open Chromium inside WebTop and paste the dashboard URL.
 You now have a **fully working OpenClaw instance running 100% in the cloud.**
+   <img width="703" alt="End Results" src="./docs/working-openclaw.png">
 
 ## 🔧 Features
 
