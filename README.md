@@ -83,7 +83,7 @@ You now have a **fully working OpenClaw instance running 100% in the cloud.**
 
 **The WebTop URI is automatically protected — no one else can reach it.**
 
-GitHub Codespaces forwards ports **privately by default** (this is the setting the `make start` command uses). According to official GitHub documentation:
+GitHub Codespaces forwards ports **privately by default** (this is the setting the `make start` command uses). According to official [GitHub documentation](https://docs.github.com/en/enterprise-cloud@latest/codespaces/reference/security-in-github-codespaces):
 
 > “All forwarded ports are private by default, which means that you will need to authenticate before you can access the port.”  
 > “Privately forwarded ports: Are accessible on the internet, but **only the codespace creator can access them, after authenticating to GitHub**.”
