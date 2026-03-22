@@ -3,7 +3,7 @@ Try OpenClaw securely using your own computer OR Github's CodeSpace
 
 <p align="center">
     <picture>
-        ![OpenClaw-WebTop](./docs/openclaw-webtop-title-logo.png)
+        <img width="703" height="344" alt="openclaw-webtop-title-logo" src="https://github.com/user-attachments/assets/e27a3915-42c5-4d5c-9501-9c8002a36ac1" />
     </picture>
 </p>
 
