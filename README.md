@@ -24,18 +24,20 @@
 
 ## Quick start (TL;DR)
 
-1. Open this repository in a GitHub Codespace
-2. In the Codespace terminal run: `make start`. This will start a webtop OS that is accessible in the browser with ollama and openclaw pre-installed
-3. Wait for the OpenClaw WebTop docker to boot. When the web desktop URL appears in the Codespace `Ports` Tab, click it to open the webtop in a new browser.
-<img width="703" alt="launch-webtop-via-ports" src="https://raw.githubusercontent.com/gitricko/openclaw-webtop/gitricko-README.md/docs/launch-webtop-via-ports.png" />
-4. In the webtop, open a terminal, run `ollama signin` and sign in via the chrome browser
-<img width="703" alt="ollama-signin" src="https://raw.githubusercontent.com/gitricko/openclaw-webtop/gitricko-README.md/docs/ollama-signin.png" />
-7. Test connectivity via `ollama pull kimi-k2.5:cloud`
-8 Open another terminal and run `ollama launch openclaw --model kimi-k2.5:cloud`
-9. Follow the instructions till completion
-10. In the webtop, open a chromium browser and check if you can access this URI: http://localhost:127.0.0.1
-11. If it does not work: run `openclaw gateway run`
-12. When the URL is working, run `openclaw dashboard` it will give you to URI with a token at the end.
+- Open this repository in a GitHub Codespace
+- In the Codespace terminal run: `make start`. This will start a webtop OS that is accessible in the browser with ollama and openclaw pre-installed
+- Wait for the OpenClaw WebTop docker to boot. When the web desktop URL appears in the Codespace `Ports` Tab, click it to open the webtop in a new browser.
+<img width="703" alt="launch-webtop-via-ports" src="./docs/launch-webtop-via-ports.png" />
+
+- In the webtop, open a terminal, run `ollama signin` and sign in via the chrome browser
+<img width="703" alt="ollama-signin" src="./docs/ollama-signin.png" />
+
+- Test connectivity via `ollama pull kimi-k2.5:cloud`
+- Open another terminal and run `ollama launch openclaw --model kimi-k2.5:cloud`
+- Follow the instructions till completion
+- In the webtop, open a chromium browser and check if you can access this URI: http://localhost:127.0.0.1
+- If it does not work: run `openclaw gateway run`
+- When the URL is working, run `openclaw dashboard` it will give you to URI with a token at the end.
 
 
 <!-- ## Star History
