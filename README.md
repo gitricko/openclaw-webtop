@@ -45,7 +45,7 @@ Perfect for:
 - Anyone who wants to “brew their lobster” securely on free cloud credits
 
 
-## 🚀 Quick Start (5–10 minutes)
+## 🚀 Quick Start (15–20 minutes)
 
 1. **Open this repository in a GitHub Codespace** (big green “Code” button → Codespaces → New)
    <img width="703" alt="launch-codespace" src="./docs/launch-codespace.png">
