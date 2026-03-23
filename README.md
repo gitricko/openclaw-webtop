@@ -1,5 +1,5 @@
 # 🦞 OpenClaw — Web Top
-
+_Run openclaw securely without any dedicated mac-mini, hostinger or gpu._
 <p align="center">
     <picture>
         <img width="703" height="344" alt="openclaw-webtop-title-logo" src="./docs/openclaw-webtop-title-logo.png" />
@@ -22,7 +22,7 @@
   </a>
 </p>
 
-**OpenClaw-WebTop** gives you a **fully functional OpenClaw personal AI assistant** in your browser in under 10 minutes — no powerful PC, no Docker on your machine, no GPU required.
+**OpenClaw-WebTop** gives you a **fully functional OpenClaw personal AI assistant** in your browser in under 20 minutes — no powerful PC, no Docker on your machine, no GPU required.
 
 Just open this repo in a GitHub Codespace and you get:
 - A complete Ubuntu MATE desktop (WebTop)
