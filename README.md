@@ -133,7 +133,10 @@ Just sign in at [NVIDIA Build](https://build.nvidia.com/) and create a API. Prom
 - Still very early (single maintainer, day-1 project)
 
 ## 📸 Screenshots / Videos
-Coming soon
+Demo of the full process
+
+[![Secured OpenClaw WebTop under 20min](https://img.youtube.com/vi/fn-VDqMNAuI/maxresdefault.jpg)](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd)
+
 <!--
 Dashboard running inside WebTop
 WhatsApp pairing flow
