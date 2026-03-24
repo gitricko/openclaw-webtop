@@ -44,6 +44,12 @@ Perfect for:
 - Students / hackers / evaluators
 - Anyone who wants to “brew their lobster” securely on free cloud credits
 
+## 📸 Demo
+Demo of the full process
+
+[![Secured OpenClaw WebTop under 20min](https://img.youtube.com/vi/fn-VDqMNAuI/maxresdefault.jpg)](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd)
+
+
 
 ## 🚀 Quick Start (15–20 minutes)
 
@@ -131,11 +137,6 @@ Just sign in at [NVIDIA Build](https://build.nvidia.com/) and create a API. Prom
 - Ollama cloud [credits](https://ollama.com/settings) are daily — heavy use will push you to paid/local models
 - Browser desktop has slight latency vs native (expected)
 - Still very early (single maintainer, day-1 project)
-
-## 📸 Screenshots / Videos
-Demo of the full process
-
-[![Secured OpenClaw WebTop under 20min](https://img.youtube.com/vi/fn-VDqMNAuI/maxresdefault.jpg)](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd)
 
 <!--
 Dashboard running inside WebTop
