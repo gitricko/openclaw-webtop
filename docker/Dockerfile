@@ -1,6 +1,6 @@
-ARG OPENCLAW_VERSION=2026.3.13
+ARG OPENCLAW_VERSION=2026.3.22
 ARG OLLAMA_VERSION=0.18.2
-ARG NODE_VERSION=22
+ARG NODE_VERSION=24
 
 # Use the official Ollama image to get the binary
 FROM ollama/ollama:${OLLAMA_VERSION} AS ollama-bin
@@ -27,6 +27,7 @@ RUN echo "runuser -l abc -c 'ollama serve &'" > /custom-cont-init.d/start-ollama
    chmod +x /custom-cont-init.d/start-ollama.sh
 RUN echo "rm -rf /config/.npm" >> /custom-cont-init.d/init-openclaw.sh && \
     echo "chown abc:abc -R  /usr/local/lib/node_modules &" >> /custom-cont-init.d/init-openclaw.sh && \
+    echo "chown abc:abc -R  /usr/local/bin &" >> /custom-cont-init.d/init-openclaw.sh && \
     chmod +x /custom-cont-init.d/init-openclaw.sh
 
 EXPOSE 11434

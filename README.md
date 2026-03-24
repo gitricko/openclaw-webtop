@@ -60,7 +60,7 @@ Perfect for:
 5. Inside the WebTop desktop:
 - Open a terminal → `ollama signin` (sign in via the Chromium browser that pops up) <img width="703" alt="ollama-signin" src="./docs/ollama-signin.png" />
 - Pull a model: `ollama pull kimi-k2.5:cloud` (or any model you like)
-- Launch: `ollama launch openclaw --model kimi-k2.5:cloud`
+- Launch: `ollama launch openclaw --model kimi-k2.5:cloud --yes` (Use this command for fresh codespace)
 - (If there is errors/After first launch) `openclaw gateway run` or `openclaw gateway restart`
 - Finally: `openclaw dashboard` → copy the tokenized URL
 
