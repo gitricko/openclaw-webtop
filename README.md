@@ -127,8 +127,25 @@ make build-local             # especially if you modified the ./docker/Dockerfil
 make start-locally-baked     # start from your local bake image
 ```
 
-### NVIDIA Build API fallback
-Just sign in at [NVIDIA Build](https://build.nvidia.com/) and create a API. Prompt OpenClaw to configure NVIDIA API keys and models as backup before Ollama cloud credits run out. There are many youtube videos out there that teaches you how to do this. More documentation will follow.
+### NVIDIA Build API as Free Fallback Model (Optional but Recommended)
+NVIDIA offers free inference endpoints for powerful models like Moonshot AI's Kimi K2 (e.g., kimi-k2-instruct) through their Build platform. These make an excellent low-cost or zero-cost fallback when your primary model hits rate limits or goes down.
+
+#### Step-by-Step Setup
+- Go to [NVIDIA Build](https://build.nvidia.com/) and sign in (free NVIDIA Developer account required).
+- Navigate to the Models tab and find a Free Endpoint. Good choices: `moonshotai/kimi-k2-instruct`
+- Click on the model. This opens a chat interface.
+- Click the **View Code** button (usually top-right).
+- In the "Copy Code to Make an API Request" panel:
+  - Click **Generate API Key** — the key will automatically appear in the code sample.
+  - Copy the entire Python code snippet.
+- Paste the code into a chat with OpenClaw and use this prompt:
+```
+Hey, here's the Python code from NVIDIA Build for the Kimi model (with my API key already included). 
+1. Test the code to make sure it works.
+2. Configure this model as a fallback for my primary model.
+```
+- OpenClaw should automatically detect the OpenAI-compatible endpoint, extract the key, and set it up as a fallback.
+<img width="703" alt="End Results" src="./docs/nvidia-build-api.png">
 
 
 ## ⚠️ Current Limitations (honest)
