@@ -45,9 +45,9 @@ Perfect for:
 - Anyone who wants to “brew their lobster” securely on free cloud credits
 
 ## 📸 Demo
-Demo of the full process
+[Demo](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd) of the full process
 
-[![Secured OpenClaw WebTop under 20min](https://img.youtube.com/vi/fn-VDqMNAuI/maxresdefault.jpg)](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd)
+<video src="https://github.com/user-attachments/assets/bc4ef505-1e79-473a-b5c4-d5e3c16294c3" autoplay loop muted></video>
 
 
 
