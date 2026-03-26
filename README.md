@@ -112,13 +112,24 @@ GitHub Codespaces forwards ports **privately by default** (this is the setting t
 **For production use** we still recommend moving the same Docker image to your own VPS or server with additional hardening (firewall, HTTPS reverse proxy, strong secrets, etc.). This Codespace version is perfect for safe testing and development.
 
 ## 💾 Backup & Restore
-Your OpenClaw ID, pairings, and config are stored in a Docker volume.
-Use the built-in targets:
+Your OpenClaw ID, device pairings, and configuration are persisted in a Docker volume.
+The project includes convenient `make` targets to back up and restore this data in codespace:
 ```bash
 make backup          # creates backup/openclaw-webtop.tar.gz
-make restore         # restores from the latest backup
-make clean           # full cleanup
+make restore         # restores from backup/openclaw-webtop.tar.gz
 ```
+### When to Use It
+- Migrating from GitHub Codespaces to a local machine or VPS
+- Testing experimental changes without risking your current setup
+- Quickly cloning your working environment into a fresh Codespace or container
+
+### How to Migrate to a New Environment
+- In your current environment, run `make backup`.
+- Download the generated file: `backup/openclaw-webtop.tar.gz`.
+- Place the file in the `backup/` folder of the new environment.
+- Run `make restore`.
+
+**💡 Tip:** Always back up before making significant changes. The restore process will overwrite the existing volume data, so test in a separate environment first if you're unsure.
 
 ## 🛠️ Advanced Usage
 Run locally (no Codespaces)
