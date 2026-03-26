@@ -151,9 +151,8 @@ Hey, here's the Python code from NVIDIA Build for the Kimi model (with my API ke
 ## ⚠️ Current Limitations (honest)
 
 - GitHub Codespaces free tier has monthly limits (great for testing, less ideal for 24/7 as Codespace auto-shutdown during inactivity)
-- Ollama cloud [credits](https://ollama.com/settings) are daily — heavy use will push you to paid/local models
-- Browser desktop has slight latency vs native (expected)
-- Still very early (single maintainer, day-1 project)
+- Ollama cloud [credits](https://ollama.com/settings) are daily — heavy use will push you to paid/local models. Or if you have multiple accounts, just `ollama signout` and `ollamasignin` with different account.
+- Browser desktop has slight latency vs native (expected). You can shutdown your codespace and [change](https://docs.github.com/en/codespaces/customizing-your-codespace/changing-the-machine-type-for-your-codespace) to 4-core codespace to improve responsiveness or the need to run heavy applications.
 
 <!--
 Dashboard running inside WebTop
