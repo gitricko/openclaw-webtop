@@ -151,7 +151,7 @@ NVIDIA offers free inference endpoints for powerful models like Moonshot AI's Ki
   - Copy the entire Python code snippet.
 - Paste the code into a chat with OpenClaw and use this prompt:
 ```
-Hey, here's the Python code from NVIDIA Build for the Kimi model (with my API key already included). 
+Hey, here's the Python code from NVIDIA Build to call an API with a model (my API key already included). 
 1. Test the code to make sure it works.
 2. Configure this model as a fallback for my primary model.
 ```
