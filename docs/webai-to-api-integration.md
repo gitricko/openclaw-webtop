@@ -1,7 +1,63 @@
 # Integrate WebAPI-to-API as fallback
 
-sdsd
+```
+Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports and the details of the API is below.
 
+To query the models it supports: http://webai-api:6969/v1/models
+
+And example of calling it:
+curl http://webai-api:6969/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gemini-3.0-flash",
+    "messages": [{ "role": "user", "content": "Hello!" }]
+  }'
+
+For full api spec, you can look at. http://webai-api:6969/openapi.json
+
+```
+## Example of WebAI-API config
+
+Here is the **webai-api provider config** I added to `models.providers` in your `openclaw.json`:
+
+```json
+"webai-api": {
+  "api": "openai-completions",
+  "apiKey": "webai-api",
+  "baseUrl": "http://webai-api:6969/v1",
+  "models": [
+    {
+      "id": "gemini-3.0-pro",
+      "name": "Gemini 3.0 Pro",
+      "reasoning": true,
+      "input": ["text", "image"],
+      "contextWindow": 1000000,
+      "maxTokens": 32768,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    },
+    {
+      "id": "gemini-3.0-flash",
+      "name": "Gemini 3.0 Flash",
+      "reasoning": false,
+      "input": ["text", "image"],
+      "contextWindow": 1000000,
+      "maxTokens": 32768,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    },
+    {
+      "id": "gemini-3.0-flash-thinking",
+      "name": "Gemini 3.0 Flash Thinking",
+      "reasoning": true,
+      "input": ["text", "image"],
+      "contextWindow": 1000000,
+      "maxTokens": 32768,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    }
+  ]
+}
+```
+
+This goes under `models.providers` in your `~/.openclaw/openclaw.json` (or `/config/.openclaw/openclaw.json`). The gateway hot-reloads this automatically.
 
 
 

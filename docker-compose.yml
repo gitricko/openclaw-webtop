@@ -41,6 +41,21 @@ services:
     networks:
       - openclaw-webtop-net
 
+  webai-api:
+    image: ghcr.io/leolionart/webai-to-api:latest
+    container_name: webai-api
+    restart: unless-stopped
+    ports:
+      - "6969:6969"
+    environment:
+      - PYTHONPATH=/app/src
+      - CONFIG_PATH=/app/data/config.conf
+    # volumes:
+    #   - ./backup/config.conf:/app/data/config.conf
+    command: uvicorn app.main:app --host 0.0.0.0 --port 6969 --workers 1 --log-level info
+    networks:
+      - openclaw-webtop-net
+
 networks:
   openclaw-webtop-net:
     driver: bridge
