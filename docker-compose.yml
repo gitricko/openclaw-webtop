@@ -3,7 +3,7 @@ name: openclaw-webtop
 services:
   openclaw-webtop:
     # Uses the specific Ubuntu-based MATE tag from LinuxServer.io
-    image: ${DOCKER_URI:-ghcr.io/gitricko/openclaw-webtop:latest}
+    image: ${DOCKER_URI:-ghcr.io/gitricko/openclaw-webtop:d081941f58c0b8aaf03fbf563c6fd5bbe08626b9}
     container_name: openclaw-webtop
     
     # Optional: Needed for some modern GUI apps to function properly on older hosts/kernels

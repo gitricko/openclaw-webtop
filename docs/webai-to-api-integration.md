@@ -1,7 +1,7 @@
 # Integrate WebAPI-to-API as fallback
 
 ```
-Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports and the details of the API is below.
+Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
 
 To query the models it supports: http://webai-api:6969/v1/models
 
@@ -15,7 +15,12 @@ curl http://webai-api:6969/v1/chat/completions \
 
 For full api spec, you can look at. http://webai-api:6969/openapi.json
 
+I want you test API to ensure it works as well as all the models it supports too
+Note: like ollama, there is no API Key needed for webai-api, so configure it accordingly
 ```
+
+
+
 ## Example of WebAI-API config
 
 Here is the **webai-api provider config** I added to `models.providers` in your `openclaw.json`:
@@ -61,7 +66,6 @@ This goes under `models.providers` in your `~/.openclaw/openclaw.json` (or `/con
 
 
 
-
 ## Example NVIDIA Build's API as fallback changes
 
 Only **one file** was actually changed by our work:
@@ -103,3 +107,137 @@ Here's the diff of what changed:
 +      },
        "ollama": {
 ```
+
+
+
+No git repo here, but I can show you exactly what changed. I made **two edits** to `openclaw.json`:
+
+---
+
+### 1. Added new provider `nvidia` (inside `models.providers`)
+
+```json
+"nvidia": {
+  "api": "openai-completions",
+  "apiKey": "nvapi-3G-DTG1nfakey-fakey-mIVebaPva22_EYU",
+  "baseUrl": "https://integrate.api.nvidia.com/v1",
+  "models": [
+    {
+      "id": "z-ai/glm4.7",
+      "name": "GLM-4.7 (NVIDIA)",
+      "input": ["text"],
+      "contextWindow": 128000,
+      "maxTokens": 16384,
+      "reasoning": true,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    }
+  ]
+}
+```
+
+---
+
+### 2. Updated `agents.defaults.model` (was just `primary`, added `fallbacks`)
+
+**Before:**
+```json
+"defaults": {
+  "model": {
+    "primary": "ollama/minimax-m2.7:cloud"
+  },
+```
+
+**After:**
+```json
+"defaults": {
+  "model": {
+    "primary": "ollama/minimax-m2.7:cloud",
+    "fallbacks": ["nvidia/z-ai/glm4.7"]
+  },
+```
+
+---
+
+```markdown
+## Model Configuration Changes
+
+### Overview
+
+| Setting | Value |
+|---|---|
+| Primary model | `ollama/minimax-m2.7:cloud` |
+| Fallback model | `nvidia/z-ai/glm4.7` |
+| Provider API | OpenAI Completions compatible |
+| Base URL | `https://integrate.api.nvidia.com/v1` |
+| Model | Zhipu AI GLM-4.7 |
+| Reasoning | Enabled |
+| Context window | 128,000 tokens |
+| Max output | 16,384 tokens |
+
+---
+
+### Changes to `openclaw.json`
+
+#### 1. Added `models.providers.nvidia`
+
+```json
+"nvidia": {
+  "api": "openai-completions",
+  "apiKey": "nvapi-fakefakefake-s18QUOUMexmIVebaPva22_EYU",
+  "baseUrl": "https://integrate.api.nvidia.com/v1",
+  "models": [
+    {
+      "id": "z-ai/glm4.7",
+      "name": "GLM-4.7 (NVIDIA)",
+      "input": ["text"],
+      "contextWindow": 128000,
+      "maxTokens": 16384,
+      "reasoning": true,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    }
+  ]
+}
+```
+
+#### 2. Updated `agents.defaults.model`
+
+```diff
+"defaults": {
+  "model": {
+    "primary": "ollama/minimax-m2.7:cloud",
++   "fallbacks": ["nvidia/z-ai/glm4.7"]
+  },
+```
+
+---
+
+### Failover Behavior
+
+When the primary model (`ollama/minimax-m2.7:cloud`) fails due to:
+- Auth errors
+- Rate limits
+- Timeouts
+
+OpenClaw automatically switches to the fallback (`nvidia/z-ai/glm4.7`).
+
+
+### How to install OpenClaw without starting from Ollama launch
+
+src: https://github.com/ollama/ollama/blob/main/cmd/launch/openclaw.go
+
+```
+openclaw onboard --non-interactive --accept-risk \
+--auth-choice ollama \
+--custom-base-url http://127.0.0.1:11434 \
+--custom-model-id ollama/minimax-m2.7:cloud \
+--skip-channels --skip-skills \
+--skip-health 
+
+Or —install-daemon
+```
+
