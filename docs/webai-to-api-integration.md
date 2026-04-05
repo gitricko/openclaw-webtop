@@ -2,6 +2,7 @@
 
 ```
 Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
+Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
 
 To query the models it supports: http://webai-api:6969/v1/models
 
@@ -18,6 +19,9 @@ For full api spec, you can look at. http://webai-api:6969/openapi.json
 I want you test API to ensure it works as well as all the models it supports too
 Note: like ollama, there is no API Key needed for webai-api, so configure it accordingly
 ```
+
+
+
 
 
 
