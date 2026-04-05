@@ -2,7 +2,6 @@
 
 ```
 Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
-Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
 
 To query the models it supports: http://webai-api:6969/v1/models
 
