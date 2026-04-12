@@ -5,12 +5,18 @@ permissions:
 
 on:
   push:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
     branches: [ main ]
     paths:
       - 'docker/**'
       - '.github/workflows/**'
 
   pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
     branches: [ main ]
     paths:
       - 'docker/**'
