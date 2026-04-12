@@ -1,5 +1,13 @@
 # Integrate WebAPI-to-API as fallback
 
+## Configure WebAPI-API
+
+0. Assuming the initial setup is done
+1. Start WebAPI-API service via `make start-webai-api` (this service is not started automatically)
+2. In WebTop, open a chrome and navigate to this URI: http://webai-api:6969
+3. Click on configuration tab and copy the cookie from the signin gemini page from chrome's inspector. Click `Import Cookies`
+4. You should see "Cookies imported and client connected successsfully!"
+5. Go to openclaw webui and copy and paste below prompt to get openclaw to configure itself.
 ```
 Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
 
@@ -15,14 +23,13 @@ curl http://webai-api:6969/v1/chat/completions \
 
 For full api spec, you can look at. http://webai-api:6969/openapi.json
 
-I want you test API to ensure it works as well as all the models it supports too
-Note: like ollama, there is no API Key needed for webai-api, so configure it accordingly
+Once the new provider and its models is configured in OpenClaw, I want you to test it thoroughly via seperate agents. If this is successful, i want you to make WebAI-API as my LAST fallback model to my primary provider and model.
+Note: like ollama, there is no API Key needed for webai-api, so you can give it a dummy API key and configure it accordingly
 ```
+6. You can ask OpenClaw to switch model and start chatting with Gemini via OpenClaw.
+7. Note: This service currently does not support tools unfortunately.
 
-
-
-
-
+---
 
 ## Example of WebAI-API config
 

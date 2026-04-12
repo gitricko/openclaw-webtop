@@ -47,11 +47,11 @@ services:
     restart: unless-stopped
     ports:
       - "6969:6969"
+    profiles:
+      - webai-api
     environment:
       - PYTHONPATH=/app/src
       - CONFIG_PATH=/app/data/config.conf
-    # volumes:
-    #   - ./backup/config.conf:/app/data/config.conf
     command: uvicorn app.main:app --host 0.0.0.0 --port 6969 --workers 3 --log-level info
     networks:
       - openclaw-webtop-net
