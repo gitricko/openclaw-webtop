@@ -23,7 +23,7 @@ curl http://webai-api:6969/v1/chat/completions \
 
 For full api spec, you can look at. http://webai-api:6969/openapi.json
 
-Once the new provider and its models is configured in OpenClaw, I want you to test it thoroughly via seperate agents. If this is successful, i want you to make WebAI-API as my LAST fallback model to my primary provider and model.
+Once the new provider and its models is configured in OpenClaw, I want you to test it thoroughly via separate agents. If this is successful, i want you to make WebAI-API as my LAST fallback model to my primary provider and model.
 Note: like ollama, there is no API Key needed for webai-api, so you can give it a dummy API key and configure it accordingly
 ```
 6. You can ask OpenClaw to switch model and start chatting with Gemini via OpenClaw.
