@@ -6,7 +6,7 @@
 1. Start WebAPI-API service via `make start-webai-api` (this service is not started automatically)
 2. In WebTop, open a chrome and navigate to this URI: http://webai-api:6969
 3. Click on configuration tab and copy the cookie from the signin gemini page from chrome's inspector. Click `Import Cookies`
-4. You should see "Cookies imported and client connected successsfully!"
+4. You should see "Cookies imported and client connected successfully!"
 5. Go to openclaw webui and copy and paste below prompt to get openclaw to configure itself.
 ```
 Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
