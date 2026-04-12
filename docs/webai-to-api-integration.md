@@ -1,0 +1,253 @@
+# Integrate WebAPI-to-API as fallback
+
+## Configure WebAPI-API
+
+0. Assuming the initial setup is done
+1. Start WebAPI-API service via `make start-webai-api` (this service is not started automatically)
+2. In WebTop, open a chrome and navigate to this URI: http://webai-api:6969
+3. Click on configuration tab and copy the cookie from the signin gemini page from chrome's inspector. Click `Import Cookies`
+4. You should see "Cookies imported and client connected successfully!"
+5. Go to openclaw webui and copy and paste below prompt to get openclaw to configure itself.
+```
+Hey, i want you to add another provider called webai-api which is a proxy to Gemini-Web. Here are the set of APIs. Please configure the provider and the set of models it supports. The details of the API is below.
+
+To query the models it supports: http://webai-api:6969/v1/models
+
+And example of calling it:
+curl http://webai-api:6969/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gemini-3.0-flash",
+    "messages": [{ "role": "user", "content": "Hello!" }]
+  }'
+
+For full api spec, you can look at. http://webai-api:6969/openapi.json
+
+Once the new provider and its models is configured in OpenClaw, I want you to test it thoroughly via separate agents. If this is successful, i want you to make WebAI-API as my LAST fallback model to my primary provider and model.
+Note: like ollama, there is no API Key needed for webai-api, so you can give it a dummy API key and configure it accordingly
+```
+6. You can ask OpenClaw to switch model and start chatting with Gemini via OpenClaw.
+7. Note: This service currently does not support tools unfortunately.
+
+---
+
+## Example of WebAI-API config
+
+Here is the **webai-api provider config** I added to `models.providers` in your `openclaw.json`:
+
+```json
+"webai-api": {
+  "api": "openai-completions",
+  "apiKey": "webai-api",
+  "baseUrl": "http://webai-api:6969/v1",
+  "models": [
+    {
+      "id": "gemini-3.0-pro",
+      "name": "Gemini 3.0 Pro",
+      "reasoning": true,
+      "input": ["text", "image"],
+      "contextWindow": 1000000,
+      "maxTokens": 32768,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    },
+    {
+      "id": "gemini-3.0-flash",
+      "name": "Gemini 3.0 Flash",
+      "reasoning": false,
+      "input": ["text", "image"],
+      "contextWindow": 1000000,
+      "maxTokens": 32768,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    },
+    {
+      "id": "gemini-3.0-flash-thinking",
+      "name": "Gemini 3.0 Flash Thinking",
+      "reasoning": true,
+      "input": ["text", "image"],
+      "contextWindow": 1000000,
+      "maxTokens": 32768,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    }
+  ]
+}
+```
+
+This goes under `models.providers` in your `~/.openclaw/openclaw.json` (or `/config/.openclaw/openclaw.json`). The gateway hot-reloads this automatically.
+
+
+
+## Example NVIDIA Build's API as fallback changes
+
+Only **one file** was actually changed by our work:
+
+**`/config/.openclaw/openclaw.json`** — edited to add the NVIDIA provider and fallback model.
+
+The other `.json` files (`agents/main/agent/models.json`, `sessions/sessions.json`, etc.) are runtime state files that get rewritten by the gateway automatically — they weren't touched by us.
+
+Here's the diff of what changed:
+
+```diff
+--- original
++++ modified
+@@ -3,7 +3,8 @@
+   "agents": {
+     "defaults": {
+       "model": {
+-        "primary": "ollama/minimax-m2.7:cloud"
++        "primary": "ollama/minimax-m2.7:cloud",
++        "fallbacks": ["nvidia/z-ai/glm4.7"]
+       },
+...
+   "models": {
+     "mode": "merge",
+     "providers": {
++      "nvidia": {
++        "api": "openai-completions",
++        "apiKey": "nvapi-<YOUR_KEY>",
++        "baseUrl": "https://integrate.api.nvidia.com/v1",
++        "models": [{
++          "id": "z-ai/glm4.7",
++          "name": "glm4.7",
++          "reasoning": true,
++          "input": ["text"],
++          "contextWindow": 128000,
++          "maxTokens": 16384,
++          "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
++        }]
++      },
+       "ollama": {
+```
+
+
+
+No git repo here, but I can show you exactly what changed. I made **two edits** to `openclaw.json`:
+
+---
+
+### 1. Added new provider `nvidia` (inside `models.providers`)
+
+```json
+"nvidia": {
+  "api": "openai-completions",
+  "apiKey": "nvapi-3G-DTG1nfakey-fakey-mIVebaPva22_EYU",
+  "baseUrl": "https://integrate.api.nvidia.com/v1",
+  "models": [
+    {
+      "id": "z-ai/glm4.7",
+      "name": "GLM-4.7 (NVIDIA)",
+      "input": ["text"],
+      "contextWindow": 128000,
+      "maxTokens": 16384,
+      "reasoning": true,
+      "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 }
+    }
+  ]
+}
+```
+
+---
+
+### 2. Updated `agents.defaults.model` (was just `primary`, added `fallbacks`)
+
+**Before:**
+```json
+"defaults": {
+  "model": {
+    "primary": "ollama/minimax-m2.7:cloud"
+  },
+```
+
+**After:**
+```json
+"defaults": {
+  "model": {
+    "primary": "ollama/minimax-m2.7:cloud",
+    "fallbacks": ["nvidia/z-ai/glm4.7"]
+  },
+```
+
+---
+
+```markdown
+## Model Configuration Changes
+
+### Overview
+
+| Setting | Value |
+|---|---|
+| Primary model | `ollama/minimax-m2.7:cloud` |
+| Fallback model | `nvidia/z-ai/glm4.7` |
+| Provider API | OpenAI Completions compatible |
+| Base URL | `https://integrate.api.nvidia.com/v1` |
+| Model | Zhipu AI GLM-4.7 |
+| Reasoning | Enabled |
+| Context window | 128,000 tokens |
+| Max output | 16,384 tokens |
+
+---
+
+### Changes to `openclaw.json`
+
+#### 1. Added `models.providers.nvidia`
+
+```json
+"nvidia": {
+  "api": "openai-completions",
+  "apiKey": "nvapi-fakefakefake-s18QUOUMexmIVebaPva22_EYU",
+  "baseUrl": "https://integrate.api.nvidia.com/v1",
+  "models": [
+    {
+      "id": "z-ai/glm4.7",
+      "name": "GLM-4.7 (NVIDIA)",
+      "input": ["text"],
+      "contextWindow": 128000,
+      "maxTokens": 16384,
+      "reasoning": true,
+      "cost": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheWrite": 0
+      }
+    }
+  ]
+}
+```
+
+#### 2. Updated `agents.defaults.model`
+
+```diff
+"defaults": {
+  "model": {
+    "primary": "ollama/minimax-m2.7:cloud",
++   "fallbacks": ["nvidia/z-ai/glm4.7"]
+  },
+```
+
+---
+
+### Failover Behavior
+
+When the primary model (`ollama/minimax-m2.7:cloud`) fails due to:
+- Auth errors
+- Rate limits
+- Timeouts
+
+OpenClaw automatically switches to the fallback (`nvidia/z-ai/glm4.7`).
+
+
+### How to install OpenClaw without starting from Ollama launch
+
+src: https://github.com/ollama/ollama/blob/main/cmd/launch/openclaw.go
+
+```
+openclaw onboard --non-interactive --accept-risk \
+--auth-choice ollama \
+--custom-base-url http://127.0.0.1:11434 \
+--custom-model-id ollama/minimax-m2.7:cloud \
+--skip-channels --skip-skills \
+--skip-health 
+
+Or —install-daemon
+```
+
