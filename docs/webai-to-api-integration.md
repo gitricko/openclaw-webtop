@@ -103,7 +103,7 @@ Here's the diff of what changed:
      "providers": {
 +      "nvidia": {
 +        "api": "openai-completions",
-+        "apiKey": "nvapi-fakefakefakefake_dummydummy--q17Te7wJ5Cr2Qsz",
++        "apiKey": "nvapi-<YOUR_KEY>",
 +        "baseUrl": "https://integrate.api.nvidia.com/v1",
 +        "models": [{
 +          "id": "z-ai/glm4.7",
