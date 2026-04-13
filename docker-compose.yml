@@ -3,7 +3,7 @@ name: openclaw-webtop
 services:
   openclaw-webtop:
     # Uses the specific Ubuntu-based MATE tag from LinuxServer.io
-    image: ${DOCKER_URI:-ghcr.io/gitricko/openclaw-webtop:d081941f58c0b8aaf03fbf563c6fd5bbe08626b9}
+    image: ${DOCKER_URI:-ghcr.io/gitricko/openclaw-webtop:latest}
     container_name: openclaw-webtop
     
     # Optional: Needed for some modern GUI apps to function properly on older hosts/kernels
@@ -56,6 +56,30 @@ services:
     networks:
       - openclaw-webtop-net
 
+# ─────────────────────────────────────────────────────────────
+  # OmniRoute – OpenAI-compatible gateway (recommended separate)
+  # ─────────────────────────────────────────────────────────────
+  omniroute:
+    image: diegosouzapw/omniroute:latest
+    container_name: omniroute
+    restart: unless-stopped
+    ports:
+      - "20128:20128"          # Dashboard + unified API endpoint
+    volumes:
+      - omniroute-data:/app/data
+      # Optional: try sharing OpenClaw config for one-click setup (test first)
+      - openclaw-webtop-config:/host-home/.openclaw:rw
+    # env_file:
+    #   - .env                  # ← create this file with your OmniRoute secrets
+    # profiles: ["cli"]       # uncomment if you want OmniRoute's OpenClaw CLI helpers
+    environment:
+      # === REQUIRED SECRETS (CHANGE THESE!) ===
+      - JWT_SECRET=your-super-long-random-jwt-secret-here-1234567890
+      - API_KEY_SECRET=your-32-byte-hex-api-key-secret-here-abcdef123456
+      - INITIAL_PASSWORD=Welcome1!
+    networks:
+      - openclaw-webtop-net
+
 networks:
   openclaw-webtop-net:
     driver: bridge
@@ -64,3 +88,6 @@ volumes:
   openclaw-webtop-config:
     external: false
     name: openclaw-webtop-config
+  omniroute-data:             # ← new volume for OmniRoute's encrypted DB + cache
+    external: false
+    name: omniroute-data
