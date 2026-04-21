@@ -3,31 +3,40 @@ source /custom-cont-init.d/common.sh || exit 1
 
 SRC="/custom-cont-init.d/ModelRelay.desktop"
 
-add_model_if_missing() {
-    local file="$1"
+configure_open_claw() {
+    local config_path="$1"
+    echo "[init-modelrelay] Configuring OpenClaw at $config_path"
 
-    if ! jq -e '.models.providers | has("modelrelay")' "$file" > /dev/null; then
-        echo "[init-modelrelay] Adding modelrelay model to $file"
-        jq '.models.providers += {
-          modelrelay: {
-            "baseUrl": "http://127.0.0.1:7352/v1",
-            "api": "openai-completions",
-            "apiKey": "no-key",
-            "models": [
-                {
-                    "id": "auto-fastest",
-                    "name": "Auto Fastest"
-                }
-            ]
-        }' "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
-    fi
+    tmp_file=$(mktemp)
+    jq \
+    --arg baseUrl "http://127.0.0.1:7352/v1" \
+    '
+    # Ensure base paths exist
+    .models //= {} |
+    .models.providers //= {} |
+    .agents //= {} |
+    .agents.defaults //= {} |
+    .agents.defaults.model //= {} |
+    .agents.defaults.models //= {} |
+    .agents.defaults.models["modelrelay/auto-fastest"] //= {} |
 
-    # Set modelrelay as default for agents if no default model is set
-    if jq -e '.agents.defaults.model.primary | select(. == null or . == "")' "$file" > /dev/null; then
-        echo "[init-modelrelay] Setting modelrelay as defaults for agents in $file"
-        jq '.agents |= (. // {}) | .agents.defaults |= (. // {}) | .agents.defaults.model |= (. // {}) | .agents.defaults.model.primary = "modelrelay/auto-fastest" | .agents.defaults.models |= (. // {}) | .agents.defaults.models["modelrelay/auto-fastest"] = {}' "$file" > "${file}.tmp" && mv "${file}.tmp" "$file"
-    fi
+    # Logic for config.models.providers.modelrelay
+    .models.providers.modelrelay = {
+        "baseUrl": $baseUrl,
+        "api": "openai-completions",
+        "apiKey": "no-key",
+        "models": [
+        { "id": "auto-fastest", "name": "Auto Fastest" }
+        ]
+    } |
 
+    # Logic for config.agents.defaults.model.primary
+    .agents.defaults.model.primary = "modelrelay/auto-fastest"
+    
+    ' "$config_path" > "$tmp_file" && mv "$tmp_file" "$config_path"
+    cat "$config_path"
+    echo "Success: Configured $config_path"
+    return 0
 }
 
 # Prep nodejs npm for ModelRelay 
@@ -40,12 +49,13 @@ sync_desktop_file "$SRC" "/config/.config/autostart/ModelRelay.desktop"
 sync_desktop_file "$SRC" "/config/Desktop/ModelRelay.desktop"
 
 # Add modelrelay model to openclaw's config as soon as it appears, and set it as default for agents if no default was set
-# /config/.openclaw/config.json 
+# /config/.openclaw/openclaw.json 
 (
     for i in {0..120}; do
-        if [ -f "/config/.openclaw/config.json" ]; then
-            add_model_if_missing "/config/.openclaw/config.json"
-            chown abc:abc "/config/.openclaw/config.json"
+        echo "[init-modelrelay] i am here"
+        if [ -f "/config/.openclaw/openclaw.json.bak" ] && [ -f "/config/.openclaw/openclaw.json" ]; then
+            configure_open_claw "/config/.openclaw/openclaw.json"
+            chown abc:abc "/config/.openclaw/openclaw.json"
             break
         fi
         sleep 5
