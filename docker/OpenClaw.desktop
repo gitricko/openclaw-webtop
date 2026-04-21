@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=mate-terminal --title="OpenClaw" -e "bash -c 'openclaw gateway --port 18789 --allow-unconfigured --verbose; exec bash'"
+Name[en_US]=OpenClaw
+Name=PicoClaw
+GenericName[en_US.UTF-8]=OpenClaw Gateway
