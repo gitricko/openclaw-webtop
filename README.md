@@ -27,6 +27,7 @@ _Run openclaw securely without any dedicated mac-mini, hostinger or gpu._
 Just open this repo in a GitHub Codespace and you get:
 - A complete Ubuntu MATE desktop (WebTop)
 - Ollama server pre-installed and auto-started
+- ModelRelater pre-installed, auto-started and pre-config as default model
 - OpenClaw globally installed via npm
 - Persistent volume for your config, pairings, and OpenClaw ID
 
@@ -67,14 +68,9 @@ Perfect for:
    <img width="703" alt="launch-webtop-via-ports" src="./docs/launch-webtop-via-ports.png">
 
 5. Inside the WebTop desktop:
-- Open a terminal → `ollama signin` (sign in via the Chromium browser that pops up) <img width="703" alt="ollama-signin" src="./docs/ollama-signin.png" />
-- Pull a model: `ollama pull minimax-m2.7:cloud` (or any model you like)
-- Launch: `ollama launch openclaw --model minimax-m2.7:cloud --yes` (Use this command for fresh codespace)
-- (If there is errors/After first launch) `openclaw gateway run` or `openclaw gateway restart`
-- Finally: `openclaw dashboard` → copy the tokenized URL
-
-5. Open Chromium inside WebTop and paste the dashboard URL.
-You now have a **fully working OpenClaw instance running 100% in the cloud.**
+- Open a terminal → `openclaw dashboard` → copy the tokenized URL and open the URL with a Chromium browser
+- In the chat panel of OpenClaw, issue command `/restart` This will ensure that the preconfigured default model is reflected
+- You now have a **fully working OpenClaw instance running 100% in the cloud.**
    <img width="703" alt="End Results" src="./docs/working-openclaw.png">
 
 ## 🔧 Features
@@ -84,6 +80,7 @@ You now have a **fully working OpenClaw instance running 100% in the cloud.**
 - **Persistent config** — if docker volume backup and restore after Codespace recreation
 - **Easy backup/restore** — `make backup` / `make restore`
 - **One-command everything** — powerful Makefile + clean `docker-compose.yml`
+- **ModelRelay** - Free API works without configuration !
 - **Auto-start Ollama** — custom init script on WebTop boot
 - **NVIDIA Build fallback** built-in
 - **Colima / local Docker support** ready
