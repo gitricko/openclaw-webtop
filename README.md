@@ -54,6 +54,9 @@ Perfect for:
 ## 🚀 Quick Start (15–20 minutes)
 
 1. **Open this repository in a GitHub Codespace** (big green “Code” button → Codespaces → New)
+
+   It is recommended that you use 4 cpu core and 16G codespace.
+   
    <img width="703" alt="launch-codespace" src="./docs/launch-codespace.png">
 3. In the Codespace terminal run:
    ```bash
