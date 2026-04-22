@@ -22,7 +22,7 @@ _Run openclaw securely without any dedicated mac-mini, hostinger or gpu._
   </a>
 </p>
 
-**OpenClaw-WebTop** gives you a **fully functional OpenClaw personal AI assistant** in your browser in under 20 minutes — no powerful PC, no Docker on your machine, no GPU required.
+**OpenClaw-WebTop** gives you a **fully functional OpenClaw personal AI assistant** in your browser in under 10 minutes — no powerful PC, no Docker on your machine, no GPU required.
 
 Just open this repo in a GitHub Codespace and you get:
 - A complete Ubuntu MATE desktop (WebTop)
@@ -42,17 +42,17 @@ The only catch? You normally need a dedicated machine.
 
 Perfect for:
 - Trying OpenClaw risk-free
+- Free LLM APIs through [ModelRelay](https://github.com/ellipticmarketing/modelrelay)
 - Students / hackers / evaluators
 - Anyone who wants to “brew their lobster” securely on free cloud credits
 
-## 📸 Demo
+## 📸 Demo (old ~ Ollama is not needed)
 [Demo](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd) of the full process
 
 <video src="https://github.com/user-attachments/assets/bc4ef505-1e79-473a-b5c4-d5e3c16294c3" autoplay loop muted></video>
 
 
-
-## 🚀 Quick Start (15–20 minutes)
+## 🚀 Quick Start (5-10 minutes)
 
 1. **Open this repository in a GitHub Codespace** (big green “Code” button → Codespaces → New)
 
