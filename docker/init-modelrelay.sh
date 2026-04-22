@@ -34,7 +34,7 @@ configure_open_claw() {
     .agents.defaults.model.primary = "modelrelay/auto-fastest"
     
     ' "$config_path" > "$tmp_file" && mv "$tmp_file" "$config_path"
-    cat "$config_path"
+    # cat "$config_path"
     echo "Success: Configured $config_path"
     return 0
 }
@@ -52,7 +52,7 @@ sync_desktop_file "$SRC" "/config/Desktop/ModelRelay.desktop"
 # /config/.openclaw/openclaw.json 
 (
     for i in {0..120}; do
-        echo "[init-modelrelay] i am here"
+        echo "[init-modelrelay] Waiting to configure OpenClaw..."
         if [ -f "/config/.openclaw/openclaw.json.bak" ] && [ -f "/config/.openclaw/openclaw.json" ]; then
             configure_open_claw "/config/.openclaw/openclaw.json"
             chown abc:abc "/config/.openclaw/openclaw.json"
