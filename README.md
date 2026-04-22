@@ -76,13 +76,12 @@ Perfect for:
 ## 🔧 Features
 
 - **Zero local install** — everything runs in browser via GitHub Codespaces
-- **Free-tier friendly** — uses Ollama daily cloud credits + NVIDIA Build API fallback
+- **Free-tier friendly** — uses ModelRelay, Ollama daily cloud credits or NVIDIA Build API fallback
 - **Persistent config** — if docker volume backup and restore after Codespace recreation
 - **Easy backup/restore** — `make backup` / `make restore`
 - **One-command everything** — powerful Makefile + clean `docker-compose.yml`
-- **ModelRelay** - Free API works without configuration !
+- **Auto-start ModelRelay** - Default configuration for Free LLM API
 - **Auto-start Ollama** — custom init script on WebTop boot
-- **NVIDIA Build fallback** built-in
 - **Colima / local Docker support** ready
 
 ## 🔒 Security: Protected by GitHub Authentication
