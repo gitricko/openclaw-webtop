@@ -39,6 +39,35 @@ configure_open_claw() {
     return 0
 }
 
+turn_on_allow_all_origin(){
+    local config_path="$1"
+
+    # Check if "*" is in allowedOrigins array
+    if ! jq -e '.gateway.controlUi.allowedOrigins | contains(["*"])' "$config_path" > /dev/null 2>&1; then
+        echo "[init-modelrelay] '*' not found in allowedOrigins, enabling it..."
+        openclaw config set gateway.controlUi.allowedOrigins '["*"]'
+    else
+        echo "[init-modelrelay] '*' already present in allowedOrigins"
+    fi
+}
+
+turn_on_allow_all_devices(){
+    local config_path="$1"
+
+    # Check if dangerouslyDisableDeviceAuth exists
+    if jq -e '.gateway.controlUi.dangerouslyDisableDeviceAuth' "$config_path" > /dev/null 2>&1; then
+        # Check if it's set to false
+        if jq -e '.gateway.controlUi.dangerouslyDisableDeviceAuth == false' "$config_path" > /dev/null 2>&1; then
+            echo "[init-modelrelay] dangerouslyDisableDeviceAuth is false, keeping it"
+        else
+            echo "[init-modelrelay] dangerouslyDisableDeviceAuth is already true"
+        fi
+    else
+        echo "[init-modelrelay] dangerouslyDisableDeviceAuth not present in config, enabling it..."
+        openclaw config set gateway.controlUi.dangerouslyDisableDeviceAuth true
+    fi
+}
+
 # Prep nodejs npm for ModelRelay 
 rm -rf /config/.npm
 chown abc:abc -R  /usr/local/lib/node_modules &
@@ -55,9 +84,14 @@ sync_desktop_file "$SRC" "/config/Desktop/ModelRelay.desktop"
         echo "[init-modelrelay] Waiting to configure OpenClaw..."
         if [ -f "/config/.openclaw/openclaw.json.bak" ] && [ -f "/config/.openclaw/openclaw.json" ]; then
             configure_open_claw "/config/.openclaw/openclaw.json"
-            chown abc:abc "/config/.openclaw/openclaw.json"
             break
         fi
         sleep 5
     done
+
+    # Patch allow origin and devices (turns this off if you dont have reverse proxy like github OR pomerium)
+    turn_on_allow_all_origin "/config/.openclaw/openclaw.json"
+    turn_on_allow_all_devices "/config/.openclaw/openclaw.json"
+    chown abc:abc "/config/.openclaw/openclaw.json"
+
 ) &
