@@ -1,6 +1,7 @@
 ARG OPENCLAW_VERSION=2026.4.21
 ARG OLLAMA_VERSION=0.21.0
 ARG NODE_VERSION=24
+ARG MODELRELAY_VERSION=1.15.1
 
 # Use the official Ollama image to get the binary
 FROM ollama/ollama:${OLLAMA_VERSION} AS ollama-bin
