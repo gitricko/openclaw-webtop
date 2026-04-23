@@ -22,11 +22,12 @@ _Run openclaw securely without any dedicated mac-mini, hostinger or gpu._
   </a>
 </p>
 
-**OpenClaw-WebTop** gives you a **fully functional OpenClaw personal AI assistant** in your browser in under 20 minutes — no powerful PC, no Docker on your machine, no GPU required.
+**OpenClaw-WebTop** gives you a **fully functional OpenClaw personal AI assistant** in your browser in under 10 minutes — no powerful PC, no Docker on your machine, no GPU required.
 
 Just open this repo in a GitHub Codespace and you get:
 - A complete Ubuntu MATE desktop (WebTop)
 - Ollama server pre-installed and auto-started
+- ModelRelater pre-installed, auto-started and pre-config as default model
 - OpenClaw globally installed via npm
 - Persistent volume for your config, pairings, and OpenClaw ID
 
@@ -41,19 +42,22 @@ The only catch? You normally need a dedicated machine.
 
 Perfect for:
 - Trying OpenClaw risk-free
+- Free LLM APIs through [ModelRelay](https://github.com/ellipticmarketing/modelrelay)
 - Students / hackers / evaluators
 - Anyone who wants to “brew their lobster” securely on free cloud credits
 
-## 📸 Demo
+## 📸 Demo (old ~ Ollama is not needed)
 [Demo](https://youtu.be/fn-VDqMNAuI?si=puZCVzk3RzRITywd) of the full process
 
 <video src="https://github.com/user-attachments/assets/bc4ef505-1e79-473a-b5c4-d5e3c16294c3" autoplay loop muted></video>
 
 
-
-## 🚀 Quick Start (15–20 minutes)
+## 🚀 Quick Start (5-10 minutes)
 
 1. **Open this repository in a GitHub Codespace** (big green “Code” button → Codespaces → New)
+
+   It is recommended that you use 4 cpu core and 16G codespace.
+   
    <img width="703" alt="launch-codespace" src="./docs/launch-codespace.png">
 3. In the Codespace terminal run:
    ```bash
@@ -64,25 +68,20 @@ Perfect for:
    <img width="703" alt="launch-webtop-via-ports" src="./docs/launch-webtop-via-ports.png">
 
 5. Inside the WebTop desktop:
-- Open a terminal → `ollama signin` (sign in via the Chromium browser that pops up) <img width="703" alt="ollama-signin" src="./docs/ollama-signin.png" />
-- Pull a model: `ollama pull minimax-m2.7:cloud` (or any model you like)
-- Launch: `ollama launch openclaw --model minimax-m2.7:cloud --yes` (Use this command for fresh codespace)
-- (If there is errors/After first launch) `openclaw gateway run` or `openclaw gateway restart`
-- Finally: `openclaw dashboard` → copy the tokenized URL
-
-5. Open Chromium inside WebTop and paste the dashboard URL.
-You now have a **fully working OpenClaw instance running 100% in the cloud.**
+- Open a terminal → `openclaw dashboard` → copy the tokenized URL and open the URL with a Chromium browser
+- In the chat panel of OpenClaw, issue command `/restart` This will ensure that the preconfigured default model is reflected
+- You now have a **fully working OpenClaw instance running 100% in the cloud.**
    <img width="703" alt="End Results" src="./docs/working-openclaw.png">
 
 ## 🔧 Features
 
 - **Zero local install** — everything runs in browser via GitHub Codespaces
-- **Free-tier friendly** — uses Ollama daily cloud credits + NVIDIA Build API fallback
+- **Free-tier friendly** — uses ModelRelay, Ollama daily cloud credits or NVIDIA Build API fallback
 - **Persistent config** — if docker volume backup and restore after Codespace recreation
 - **Easy backup/restore** — `make backup` / `make restore`
 - **One-command everything** — powerful Makefile + clean `docker-compose.yml`
+- **Auto-start ModelRelay** - Default configuration for Free LLM API
 - **Auto-start Ollama** — custom init script on WebTop boot
-- **NVIDIA Build fallback** built-in
 - **Colima / local Docker support** ready
 
 ## 🔒 Security: Protected by GitHub Authentication
