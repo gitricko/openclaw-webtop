@@ -1,4 +1,5 @@
 ARG OPENCLAW_VERSION=2026.4.21
+ARG OMNIROUTE_VERSION=3.6.9
 ARG OLLAMA_VERSION=0.21.0
 ARG NODE_VERSION=24
 
@@ -19,6 +20,8 @@ RUN ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm
 # Copy the Ollama binary from the official image
 COPY --from=ollama-bin --chown=abc:abc /usr/bin/ollama /usr/local/bin/ollama
 
+RUN mkdir -p /custom-cont-init.d
+
 RUN npm install -g openclaw@${OPENCLAW_VERSION} && \
     chown -R abc:abc /usr/local/lib/node_modules/openclaw /usr/local/bin/openclaw
 COPY --chown=abc:abc OpenClaw.desktop /custom-cont-init.d/OpenClaw.desktop
@@ -31,9 +34,14 @@ COPY --chown=abc:abc ModelRelay.desktop /custom-cont-init.d/ModelRelay.desktop
 COPY --chown=abc:abc init-modelrelay.sh /custom-cont-init.d/init-modelrelay.sh
 COPY --chown=abc:abc common.sh /custom-cont-init.d/common.sh
 
+# Install OmniRoute and start automatically when desktop loads
+RUN npm install -g omniroute@${OMNIROUTE_VERSION} && \
+    chown -R abc:abc /usr/local/lib/node_modules/omniroute /usr/local/bin/omniroute
+COPY --chown=abc:abc OmniRoute.desktop /custom-cont-init.d/OmniRoute.desktop
+COPY --chown=abc:abc init-omniroute.sh /custom-cont-init.d/init-omniroute.sh
+
 # Start Ollama to start automatically when the desktop loads,
-RUN mkdir -p /custom-cont-init.d
 RUN echo "runuser -l abc -c 'ollama serve &'" > /custom-cont-init.d/start-ollama.sh && \
    chmod +x /custom-cont-init.d/start-ollama.sh
 
-COPY --chown=abc:abc init-openclaw.sh /custom-cont-init.d/init-openclaw.sh
+EXPOSE 18789 20128
