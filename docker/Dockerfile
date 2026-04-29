@@ -13,8 +13,8 @@ FROM node:${NODE_VERSION}-slim AS node-bin
 # Use your preferred Webtop flavor as the base (e.g., Ubuntu, Alpine)
 FROM lscr.io/linuxserver/webtop:ubuntu-mate
 
-# Install help utilities and clean up apt cache to reduce image size
-RUN apt-get update && apt-get install -y htop && rm -rf /var/lib/apt/lists/*
+# Install help utilities, nginx and clean up apt cache to reduce image size
+RUN apt-get update && apt-get install -y htop nginx && rm -rf /var/lib/apt/lists/*
 
 # Copy Node.js binaries and libraries
 COPY --from=node-bin --chown=abc:abc /usr/local/bin/node /usr/local/bin/
@@ -27,6 +27,10 @@ COPY --from=ollama-bin --chown=abc:abc /usr/bin/ollama /usr/local/bin/ollama
 RUN mkdir -p /custom-cont-init.d
 COPY --chown=abc:abc *.desktop /custom-cont-init.d
 COPY --chown=abc:abc *.sh /custom-cont-init.d
+
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/sites-available/default
+RUN ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 ARG OPENCLAW_VERSION
 RUN npm install -g openclaw@${OPENCLAW_VERSION} && \
@@ -49,7 +53,10 @@ RUN npm install -g omniroute@${OMNIROUTE_VERSION} && \
 RUN echo "runuser -l abc -c 'ollama serve &'" > /custom-cont-init.d/start-ollama.sh && \
    chmod +x /custom-cont-init.d/start-ollama.sh
 
+# Start nginx automatically
+RUN chmod +x /custom-cont-init.d/start-nginx.sh
+
 # Empty folders with incorrect permissions
 RUN rm -rf ~/.npm ~/.openclaw
 
-EXPOSE 18789 20128 7352
+EXPOSE 18789 20128 7352 8080
