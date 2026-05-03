@@ -83,6 +83,18 @@ Perfect for:
 - **Auto-start ModelRelay** - Default configuration for Free LLM API
 - **Auto-start Ollama** — custom init script on WebTop boot
 - **Colima / local Docker support** ready
+ - **Built-in code-server IDE** — browser-based VS Code on port `8888`
+
+## 🧑‍💻 Built-in code-server IDE
+
+This image includes `code-server` and exposes it on port `8888`.
+
+- `code-server` is installed automatically in the container.
+- The desktop launcher `CodeServer` starts it inside the WebTop environment.
+- In Codespaces, use the forwarded private port `8888`.
+- Locally, open `http://localhost:8888`.
+
+> Note: this setup may use `code-server --auth none` in development, so keep port `8888` private. For local production use, secure it with an authenticated reverse proxy or firewall.
 
 ## 🔒 Security: Protected by GitHub Authentication
 
