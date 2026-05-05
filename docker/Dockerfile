@@ -5,7 +5,7 @@ ARG OLLAMA_VERSION=0.21.0
 ARG NODE_VERSION=24
 ARG CODE_SERVER_VERSION=4.117.0
 ARG MNEMON_VERSION=0.1.3
-
+ARG TARGETARCH
 
 # Use the official Ollama image to get the binary
 FROM ollama/ollama:${OLLAMA_VERSION} AS ollama-bin
@@ -68,8 +68,8 @@ RUN usermod -s $(which zsh) root; usermod -s $(which zsh) abc
 
 # Install mnemon
 ARG MNEMON_VERSION
-ARG BUILDARCH
-RUN echo "Building for architecture: $BUILDARCH"
+ARG TARGETARCH
+RUN echo "Building for architecture: $TARGETARCH"
 RUN set -eux; \
     MNEMON_ARCH="${MNEMON_ARCH:-${TARGETARCH:-amd64}}"; \
     case "${MNEMON_ARCH}" in \
